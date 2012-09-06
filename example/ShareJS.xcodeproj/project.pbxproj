@@ -1,0 +1,379 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A42AF5615ED3BD1009AA29A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A42AF5515ED3BD1009AA29A /* UIKit.framework */; };
+		3A42AF5815ED3BD1009AA29A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A42AF5715ED3BD1009AA29A /* Foundation.framework */; };
+		3A42AF5A15ED3BD1009AA29A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A42AF5915ED3BD1009AA29A /* CoreGraphics.framework */; };
+		3A79B24915F8AA490051C19C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B24815F8AA490051C19C /* main.m */; };
+		3A79B25015F8AA540051C19C /* SHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B24C15F8AA540051C19C /* SHAppDelegate.m */; };
+		3A79B25115F8AA540051C19C /* SHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B24E15F8AA540051C19C /* SHViewController.m */; };
+		3A79B25215F8AA540051C19C /* SHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A79B24F15F8AA540051C19C /* SHViewController.xib */; };
+		3A79B26715F8AAE10051C19C /* NSDictionary+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25815F8AAE10051C19C /* NSDictionary+Safe.m */; };
+		3A79B26815F8AAE10051C19C /* NSString+Identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25A15F8AAE10051C19C /* NSString+Identifier.m */; };
+		3A79B26915F8AAE10051C19C /* SHJSONInsertStringOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25D15F8AAE10051C19C /* SHJSONInsertStringOperation.m */; };
+		3A79B26A15F8AAE10051C19C /* SHJSONOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25F15F8AAE10051C19C /* SHJSONOperation.m */; };
+		3A79B26B15F8AAE10051C19C /* SHClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B26215F8AAE10051C19C /* SHClient.m */; };
+		3A79B26C15F8AAE10051C19C /* SHJSONClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B26415F8AAE10051C19C /* SHJSONClient.m */; };
+		3A79B26D15F8AAE10051C19C /* SHPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B26615F8AAE10051C19C /* SHPath.m */; };
+		3A79B27615F8AAF30051C19C /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B26F15F8AAF30051C19C /* base64.c */; };
+		3A79B27715F8AAF30051C19C /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B27215F8AAF30051C19C /* NSData+SRB64Additions.m */; };
+		3A79B27815F8AAF30051C19C /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B27515F8AAF30051C19C /* SRWebSocket.m */; };
+		3AB432D415F0E3C200EB158F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB432D315F0E3C200EB158F /* libicucore.dylib */; };
+		3AB432D615F0E3C800EB158F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB432D515F0E3C800EB158F /* CFNetwork.framework */; };
+		3AB432D815F0E3CE00EB158F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB432D715F0E3CE00EB158F /* Security.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3A42AF5115ED3BD1009AA29A /* ShareJS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareJS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A42AF5515ED3BD1009AA29A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3A42AF5715ED3BD1009AA29A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3A42AF5915ED3BD1009AA29A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3A79B24515F8AA440051C19C /* ShareJS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareJS-Info.plist"; sourceTree = "<group>"; };
+		3A79B24615F8AA440051C19C /* ShareJS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ShareJS-Prefix.pch"; sourceTree = "<group>"; };
+		3A79B24815F8AA490051C19C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3A79B24A15F8AA540051C19C /* Foundation+sdfsubscripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Foundation+sdfsubscripts.h"; sourceTree = "<group>"; };
+		3A79B24B15F8AA540051C19C /* SHAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHAppDelegate.h; sourceTree = "<group>"; };
+		3A79B24C15F8AA540051C19C /* SHAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHAppDelegate.m; sourceTree = "<group>"; };
+		3A79B24D15F8AA540051C19C /* SHViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHViewController.h; sourceTree = "<group>"; };
+		3A79B24E15F8AA540051C19C /* SHViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHViewController.m; sourceTree = "<group>"; };
+		3A79B24F15F8AA540051C19C /* SHViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHViewController.xib; sourceTree = "<group>"; };
+		3A79B25715F8AAE10051C19C /* NSDictionary+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Safe.h"; sourceTree = "<group>"; };
+		3A79B25815F8AAE10051C19C /* NSDictionary+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Safe.m"; sourceTree = "<group>"; };
+		3A79B25915F8AAE10051C19C /* NSString+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Identifier.h"; sourceTree = "<group>"; };
+		3A79B25A15F8AAE10051C19C /* NSString+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Identifier.m"; sourceTree = "<group>"; };
+		3A79B25C15F8AAE10051C19C /* SHJSONInsertStringOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHJSONInsertStringOperation.h; sourceTree = "<group>"; };
+		3A79B25D15F8AAE10051C19C /* SHJSONInsertStringOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHJSONInsertStringOperation.m; sourceTree = "<group>"; };
+		3A79B25E15F8AAE10051C19C /* SHJSONOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHJSONOperation.h; sourceTree = "<group>"; };
+		3A79B25F15F8AAE10051C19C /* SHJSONOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHJSONOperation.m; sourceTree = "<group>"; };
+		3A79B26015F8AAE10051C19C /* SHOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHOperation.h; sourceTree = "<group>"; };
+		3A79B26115F8AAE10051C19C /* SHClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHClient.h; sourceTree = "<group>"; };
+		3A79B26215F8AAE10051C19C /* SHClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHClient.m; sourceTree = "<group>"; };
+		3A79B26315F8AAE10051C19C /* SHJSONClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHJSONClient.h; sourceTree = "<group>"; };
+		3A79B26415F8AAE10051C19C /* SHJSONClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHJSONClient.m; sourceTree = "<group>"; };
+		3A79B26515F8AAE10051C19C /* SHPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHPath.h; sourceTree = "<group>"; };
+		3A79B26615F8AAE10051C19C /* SHPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHPath.m; sourceTree = "<group>"; };
+		3A79B26F15F8AAF30051C19C /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
+		3A79B27015F8AAF30051C19C /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		3A79B27115F8AAF30051C19C /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
+		3A79B27215F8AAF30051C19C /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SRB64Additions.m"; sourceTree = "<group>"; };
+		3A79B27315F8AAF30051C19C /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		3A79B27415F8AAF30051C19C /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		3A79B27515F8AAF30051C19C /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		3AB432D315F0E3C200EB158F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		3AB432D515F0E3C800EB158F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		3AB432D715F0E3CE00EB158F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3A42AF4E15ED3BD1009AA29A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AB432D815F0E3CE00EB158F /* Security.framework in Frameworks */,
+				3AB432D615F0E3C800EB158F /* CFNetwork.framework in Frameworks */,
+				3AB432D415F0E3C200EB158F /* libicucore.dylib in Frameworks */,
+				3A42AF5615ED3BD1009AA29A /* UIKit.framework in Frameworks */,
+				3A42AF5815ED3BD1009AA29A /* Foundation.framework in Frameworks */,
+				3A42AF5A15ED3BD1009AA29A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3A42AF4615ED3BD1009AA29A = {
+			isa = PBXGroup;
+			children = (
+				3A42AF5B15ED3BD1009AA29A /* ShareJS */,
+				3A42AF5415ED3BD1009AA29A /* Frameworks */,
+				3A42AF5215ED3BD1009AA29A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3A42AF5215ED3BD1009AA29A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3A42AF5115ED3BD1009AA29A /* ShareJS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3A42AF5415ED3BD1009AA29A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A79B26E15F8AAF30051C19C /* SocketRocket */,
+				3AB432D715F0E3CE00EB158F /* Security.framework */,
+				3AB432D515F0E3C800EB158F /* CFNetwork.framework */,
+				3AB432D315F0E3C200EB158F /* libicucore.dylib */,
+				3A42AF5515ED3BD1009AA29A /* UIKit.framework */,
+				3A42AF5715ED3BD1009AA29A /* Foundation.framework */,
+				3A42AF5915ED3BD1009AA29A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A42AF5B15ED3BD1009AA29A /* ShareJS */ = {
+			isa = PBXGroup;
+			children = (
+				3A79B25515F8AAE10051C19C /* sharejs-ios */,
+				3A79B24B15F8AA540051C19C /* SHAppDelegate.h */,
+				3A79B24C15F8AA540051C19C /* SHAppDelegate.m */,
+				3A79B24D15F8AA540051C19C /* SHViewController.h */,
+				3A79B24E15F8AA540051C19C /* SHViewController.m */,
+				3A79B24F15F8AA540051C19C /* SHViewController.xib */,
+				3A42AF5C15ED3BD1009AA29A /* Supporting Files */,
+			);
+			name = ShareJS;
+			sourceTree = "<group>";
+		};
+		3A42AF5C15ED3BD1009AA29A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3A79B24815F8AA490051C19C /* main.m */,
+				3A79B24515F8AA440051C19C /* ShareJS-Info.plist */,
+				3A79B24615F8AA440051C19C /* ShareJS-Prefix.pch */,
+				3A79B24A15F8AA540051C19C /* Foundation+sdfsubscripts.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3A79B25515F8AAE10051C19C /* sharejs-ios */ = {
+			isa = PBXGroup;
+			children = (
+				3A79B25615F8AAE10051C19C /* categories */,
+				3A79B25B15F8AAE10051C19C /* operations */,
+				3A79B26115F8AAE10051C19C /* SHClient.h */,
+				3A79B26215F8AAE10051C19C /* SHClient.m */,
+				3A79B26315F8AAE10051C19C /* SHJSONClient.h */,
+				3A79B26415F8AAE10051C19C /* SHJSONClient.m */,
+				3A79B26515F8AAE10051C19C /* SHPath.h */,
+				3A79B26615F8AAE10051C19C /* SHPath.m */,
+			);
+			name = "sharejs-ios";
+			path = "../sharejs-ios";
+			sourceTree = "<group>";
+		};
+		3A79B25615F8AAE10051C19C /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				3A79B25715F8AAE10051C19C /* NSDictionary+Safe.h */,
+				3A79B25815F8AAE10051C19C /* NSDictionary+Safe.m */,
+				3A79B25915F8AAE10051C19C /* NSString+Identifier.h */,
+				3A79B25A15F8AAE10051C19C /* NSString+Identifier.m */,
+			);
+			path = categories;
+			sourceTree = "<group>";
+		};
+		3A79B25B15F8AAE10051C19C /* operations */ = {
+			isa = PBXGroup;
+			children = (
+				3A79B26015F8AAE10051C19C /* SHOperation.h */,
+				3A79B25E15F8AAE10051C19C /* SHJSONOperation.h */,
+				3A79B25F15F8AAE10051C19C /* SHJSONOperation.m */,
+				3A79B25C15F8AAE10051C19C /* SHJSONInsertStringOperation.h */,
+				3A79B25D15F8AAE10051C19C /* SHJSONInsertStringOperation.m */,
+			);
+			path = operations;
+			sourceTree = "<group>";
+		};
+		3A79B26E15F8AAF30051C19C /* SocketRocket */ = {
+			isa = PBXGroup;
+			children = (
+				3A79B26F15F8AAF30051C19C /* base64.c */,
+				3A79B27015F8AAF30051C19C /* base64.h */,
+				3A79B27115F8AAF30051C19C /* NSData+SRB64Additions.h */,
+				3A79B27215F8AAF30051C19C /* NSData+SRB64Additions.m */,
+				3A79B27315F8AAF30051C19C /* SocketRocket-Prefix.pch */,
+				3A79B27415F8AAF30051C19C /* SRWebSocket.h */,
+				3A79B27515F8AAF30051C19C /* SRWebSocket.m */,
+			);
+			name = SocketRocket;
+			path = vendor/socketrocket/SocketRocket;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3A42AF5015ED3BD1009AA29A /* ShareJS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A42AF6F15ED3BD1009AA29A /* Build configuration list for PBXNativeTarget "ShareJS" */;
+			buildPhases = (
+				3A42AF4D15ED3BD1009AA29A /* Sources */,
+				3A42AF4E15ED3BD1009AA29A /* Frameworks */,
+				3A42AF4F15ED3BD1009AA29A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareJS;
+			productName = ShareJS;
+			productReference = 3A42AF5115ED3BD1009AA29A /* ShareJS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3A42AF4815ED3BD1009AA29A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SH;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Hans Pinckaers";
+			};
+			buildConfigurationList = 3A42AF4B15ED3BD1009AA29A /* Build configuration list for PBXProject "ShareJS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3A42AF4615ED3BD1009AA29A;
+			productRefGroup = 3A42AF5215ED3BD1009AA29A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3A42AF5015ED3BD1009AA29A /* ShareJS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3A42AF4F15ED3BD1009AA29A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A79B25215F8AA540051C19C /* SHViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3A42AF4D15ED3BD1009AA29A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A79B24915F8AA490051C19C /* main.m in Sources */,
+				3A79B25015F8AA540051C19C /* SHAppDelegate.m in Sources */,
+				3A79B25115F8AA540051C19C /* SHViewController.m in Sources */,
+				3A79B26715F8AAE10051C19C /* NSDictionary+Safe.m in Sources */,
+				3A79B26815F8AAE10051C19C /* NSString+Identifier.m in Sources */,
+				3A79B26915F8AAE10051C19C /* SHJSONInsertStringOperation.m in Sources */,
+				3A79B26A15F8AAE10051C19C /* SHJSONOperation.m in Sources */,
+				3A79B26B15F8AAE10051C19C /* SHClient.m in Sources */,
+				3A79B26C15F8AAE10051C19C /* SHJSONClient.m in Sources */,
+				3A79B26D15F8AAE10051C19C /* SHPath.m in Sources */,
+				3A79B27615F8AAF30051C19C /* base64.c in Sources */,
+				3A79B27715F8AAF30051C19C /* NSData+SRB64Additions.m in Sources */,
+				3A79B27815F8AAF30051C19C /* SRWebSocket.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3A42AF6D15ED3BD1009AA29A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		3A42AF6E15ED3BD1009AA29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3A42AF7015ED3BD1009AA29A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareJS-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/ShareJS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3A42AF7115ED3BD1009AA29A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareJS-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/ShareJS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3A42AF4B15ED3BD1009AA29A /* Build configuration list for PBXProject "ShareJS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A42AF6D15ED3BD1009AA29A /* Debug */,
+				3A42AF6E15ED3BD1009AA29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3A42AF6F15ED3BD1009AA29A /* Build configuration list for PBXNativeTarget "ShareJS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A42AF7015ED3BD1009AA29A /* Debug */,
+				3A42AF7115ED3BD1009AA29A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3A42AF4815ED3BD1009AA29A /* Project object */;
+}
