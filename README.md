@@ -1,4 +1,4 @@
-iOS Client for Share.js
+Objective-C client for Share.js
 ========================
 
 Still work in progress.
