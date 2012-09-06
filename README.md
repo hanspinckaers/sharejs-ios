@@ -19,13 +19,13 @@ Example
 --------
 
 	NSURL *url = [NSURL URLWithString:@"ws://localhost:8000/sockjs/websocket"];
-	_client = [[SHJSONClient alloc] initWithURL:url docName:@"groceries"];
+	SHJSONClient *client = [[SHJSONClient alloc] initWithURL:url docName:@"groceries"];
 
 	NSMutableArray __block *groceries = [@[ @"milk", @"bread", @"eggs" ] mutableCopy];
 
-	[_client addCallback:^(SHType type, id<SHOperation> operation) {
+	[client addCallback:^(SHType type, id<SHOperation> operation) {
 
-		// item add to array items in dictionary list.
+		// add the remote grocerie to our groceries array.
 		[operation runOnObject:&groceries];
 
 	} forPath:[SHPath pathWithKeyPath:@"list.items"] type:SHTypeInsertItemToList];
