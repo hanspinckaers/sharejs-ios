@@ -19,7 +19,16 @@
     [super viewDidLoad];
 
     NSURL *url = [NSURL URLWithString:@"ws://localhost:8000/sockjs/websocket"];
-    _client = [[SHClient alloc] initWithURL:url docName:@"groceries"];
+    _client = [[SHJSONClient alloc] initWithURL:url docName:@"groceries"];
+    
+    NSMutableArray __block *groceries = [@[ @"milk", @"bread", @"eggs" ] mutableCopy];
+
+    [_client addCallback:^(SHType type, id<SHOperation> operation) {
+        
+        // item add to array items in dictionary list.
+        [operation runOnObject:&groceries];
+        
+    } forPath:[SHPath pathWithKeyPath:@"list.items"] type:SHTypeInsertItemToList];
 }
 
 - (void)viewDidUnload

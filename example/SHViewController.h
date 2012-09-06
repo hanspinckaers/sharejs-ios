@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SHClient.h"
+#import "SHJSONClient.h"
 
 @interface SHViewController : UIViewController
 
-@property (strong) SHClient *client;
+@property (strong) SHJSONClient *client;
 
 @end
