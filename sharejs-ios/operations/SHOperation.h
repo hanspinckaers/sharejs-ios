@@ -30,7 +30,7 @@ typedef enum
 + (id)operationWithJSONDictionary:(NSDictionary *)JSONDictionary;
 - (id)initWithJSONDictionary:(NSDictionary *)JSONDictionary;
 
-- (void)runOnObject:(id*)object;
+- (void)runOnObject:(NSObject**)object;
 
 @property (strong) SHPath *path;
 @property (assign) SHType type;

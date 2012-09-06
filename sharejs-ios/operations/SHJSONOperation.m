@@ -72,15 +72,17 @@ static NSMutableDictionary *operationClasses;
     return nil;
 }
 
-- (void)runOnObject:(id*)object
+- (void)runOnObject:(NSObject**)object;
 {
     if([*object isKindOfClass:[NSArray class]])
     {
-        [self runOnArray:object];
+        NSArray __autoreleasing **array = (NSArray**)object;
+        [self runOnArray:array];
     }
     else if([*object isKindOfClass:[NSDictionary class]])
     {
-        [self runOnDictionary:object];
+        NSDictionary __autoreleasing **dict = (NSDictionary**)object;
+        [self runOnDictionary:dict];
     }
     else {
         NSLog(@"%@ not supported by %@ operation.", NSStringFromClass([*object class]), self);

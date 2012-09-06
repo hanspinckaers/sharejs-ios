@@ -44,26 +44,34 @@
 
 + (SHPath *)pathWithKeyPath:(NSString *)keyPath
 {
-    return nil;
+    SHPath *path = [[[self class] alloc] init];
+    path.path = [keyPath pathComponents];
+    return path;
 }
 
 + (SHPath *)pathWithObject:(NSString *)object inArray:(NSArray *)rootArray
 {
-        return nil;
+    // TODO: Implement pathWithObject:inArray:
+    SHPath *path = [[[self class] alloc] init];
+    return path;
 }
 
 + (SHPath *)pathWithObject:(NSString *)object inDictionary:(NSArray *)rootDictionary
 {
-        return nil;
+    // TODO: Implement pathWithObject:inDictionary:
+    SHPath *path = [[[self class] alloc] init];
+    return path;
 }
 
 - (BOOL)parentOfPath:(SHPath *)path
 {
+    // TODO: parentOfPath
     return NO;
 }
 
 - (BOOL)childOfPath:(SHPath *)path
 {
+    // TODO: childOfPath
     return NO;
 }
 
