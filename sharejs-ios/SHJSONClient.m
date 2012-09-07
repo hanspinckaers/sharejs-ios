@@ -17,6 +17,19 @@
 
 @implementation SHJSONClient
 
+- (void)openDocument:(NSString *)docName
+{
+    SHMessage *openMessage = [SHMessage messageWithDictionary:@{ @"doc" : self.docName, @"open": [NSNumber numberWithBool:YES], @"create" : [NSNumber numberWithBool:YES], @"type" : @"json",  @"snapshot": [NSNull null] }
+                                                      success:^(NSDictionary *respons)
+    {
+        NSLog(@"opened doc with respons: %@", respons);
+    } failure:^(NSError *error) {
+        NSLog(@"error: %@", error);
+    }];
+    
+    [self addMessageToQueue:openMessage];
+}
+
 - (NSString *)addCallback:(SHCallbackBlock)callback forPath:(SHPath *)path type:(SHType)type
 {
     if(!_jsonCallbacks) _jsonCallbacks = [NSMutableDictionary dictionary];

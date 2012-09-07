@@ -14,6 +14,37 @@
 
 @property (strong) SRWebSocket *socket;
 @property (strong) NSMutableDictionary *callbacks;
+@property (strong) NSMutableArray *queue;
+@property (strong) NSMutableArray *unsendedOperations;
+
+@end
+
+@implementation SHMessage
+
++ (id)messageWithDictionary:(NSDictionary *)dictionary
+                    success:(SHMessageSuccessCallback)successBlock
+                    failure:(SHMessageFailureCallback)failureBlock
+{
+    SHMessage *message = [[[self class] alloc] init];
+    
+    if(message)
+    {
+        message.messageDict = dictionary;
+        message.successCallback = successBlock;
+        message.failureCallback = failureBlock;
+    }
+    
+    return message;
+}
+
+- (NSData *)messageData
+{
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_messageDict options:NSJSONReadingMutableContainers error:&error];
+    if(jsonData) return jsonData;
+    NSLog(@"error converting to messageData: %@", error);
+    return nil;
+}
 
 @end
 
@@ -24,19 +55,73 @@
     self = [super init];
     
     if(self)
-    {
-        _socket = [[SRWebSocket alloc] initWithURL:url];
-        _socket.delegate = self;
-        [_socket open];
+    {        
+        _url = url;
+        _docName = docName;
+        [self connectToSocket];
     }
     
     return self;
 }
 
+- (void)connectToSocket
+{
+    if(!_socket)
+    {
+        _socket = [[SRWebSocket alloc] initWithURL:_url];
+        _socket.delegate = self;
+    }
+
+    SHMessage *authMessage = [SHMessage messageWithDictionary:nil success:^(NSDictionary *respons)
+    {
+        if(_auth == nil && respons[@"auth"] != nil)
+            _auth = respons[@"auth"];
+
+        NSLog(@"_auth %@", _auth);
+        
+        [self openDocument:_docName];
+      
+    } failure:^(NSError *error) {}];
+    
+    [self addMessageToQueue:authMessage];
+
+    [_socket open];
+}
+
+- (void)openDocument:(NSString *)docName
+{
+    // subclass should have this function
+}
+
+#pragma mark - Submitting
+
 - (void)submitOperation:(id<SHOperation>)operation
 {
-    // should queue and remove from queue when we get a confirmation
-    [_socket send:[operation jsonDictionary]];
+    if(!_unsendedOperations) _unsendedOperations = [NSMutableArray array];
+    [_unsendedOperations addObject:operation];
+    
+    SHMessage *message = [SHMessage messageWithDictionary:[operation jsonDictionary]
+                                                  success:^(NSDictionary *respons)
+    {
+        id<SHOperation> operation = [self operationForJSONDictionary:respons];
+        NSArray *callbacks = [self callbacksForOperation:operation];
+        [callbacks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            SHCallbackBlock callback = (SHCallbackBlock)obj[@"callback"];
+            callback(operation.type, operation);
+        }];
+        [_unsendedOperations removeObject:operation];
+    } failure:^(NSError *error) {
+        NSLog(@"Error sending message: %@", error);
+    }];
+    
+    [self addMessageToQueue:message];
+}
+
+#pragma mark - Callback handling
+
+- (id<SHOperation>)operationForJSONDictionary:(NSDictionary *)jsonDictionary
+{
+    return nil;
 }
 
 // find the right callbacks for this operation
@@ -99,6 +184,23 @@
     [_callbacks removeObjectForKey:identifier];
 }
 
+#pragma mark - Socket communicator
+
+- (void)addMessageToQueue:(SHMessage *)message
+{
+    if(!_queue) _queue = [NSMutableArray array];
+    [_queue addObject:message];
+    [self sendNextMessageOfQueue];
+}
+
+- (void)sendNextMessageOfQueue
+{
+    if([_queue count] == 0 || _inflightMessage) return;
+    
+    _inflightMessage = [_queue lastObject];
+    [_queue removeLastObject];
+    if(_inflightMessage.messageDict) [_socket send:_inflightMessage.messageData];
+}
 
 #pragma mark - SocketRocket delegate methods
 
@@ -109,7 +211,7 @@
 
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    NSLog(@"didReceiveMessage");
+    NSLog(@"didReceiveMessage: %@", message);
     
     NSError *e = nil;
     
@@ -117,41 +219,28 @@
                                                                 options:NSJSONReadingMutableContainers
                                                                   error:&e];
     
-    if(!e)
-    {
-        if(_auth == nil && messageDict[@"auth"] != nil)
-        {
-            _auth = messageDict[@"auth"];
-            NSLog(@"auth");
-        }
-        else {
-            id<SHOperation> operation = [self operationForJSONDictionary:messageDict];
-            NSArray *callbacks = [self callbacksForOperation:operation];
-            [callbacks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                SHCallbackBlock callback = (SHCallbackBlock)obj[@"callback"];
-                callback(operation.type, operation);
-            }];
-        }
-    }
-    else {
-        NSLog(@"No valid JSON respons: %@, JSON: %@", e, message);
-    }
+    SHMessage *oldInflight = _inflightMessage;
+    _inflightMessage = nil;
     
-}
-
-- (id<SHOperation>)operationForJSONDictionary:(NSDictionary *)jsonDictionary
-{
-    return nil;
+    if(e) oldInflight.failureCallback(e);
+    else oldInflight.successCallback(messageDict);
+    
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
 {
-     NSLog(@"didFailWithError");
+    NSLog(@"%@", error);
+    _inflightMessage.failureCallback(error);
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
 {
-     NSLog(@"didCloseWithCode");   
+    NSError *error = [[NSError alloc] initWithDomain:nil
+                                                code:code
+                                            userInfo:[NSDictionary dictionaryWithObject:reason
+                                                                                 forKey:NSLocalizedDescriptionKey]];
+    
+    _inflightMessage.failureCallback(error);
 }
 
 @end
