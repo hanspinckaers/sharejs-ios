@@ -7,7 +7,7 @@
 //
 
 #import "SHJSONInsertStringOperation.h"
-#import "NSDictionary+Safe.h"
+#import "Categories+Safe.h"
 
 @implementation SHJSONInsertStringOperation
 @synthesize path = _path, type = _type;

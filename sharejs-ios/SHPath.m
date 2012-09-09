@@ -7,7 +7,7 @@
 //
 
 #import "SHPath.h"
-#import "NSDictionary+Safe.h"
+#import "Categories+Safe.h"
 
 @implementation SHPath
 

@@ -12,42 +12,20 @@
 #import <Foundation/Foundation.h>
 #import "SHOperation.h"
 #import "NSString+Identifier.h"
+#import "SHSocket.h"
+
 
 typedef void(^SHCallbackBlock)(SHType type, id<SHOperation>operation);
 
-typedef void(^SHMessageSuccessCallback)(NSDictionary* respons);
-typedef void(^SHMessageFailureCallback)(NSError* error);
-
-@interface SHMessage : NSObject
-
-@property (copy) SHMessageSuccessCallback successCallback;
-@property (copy) SHMessageFailureCallback failureCallback;
-
-@property (strong) NSDictionary *messageDict;
-@property (strong, readonly) NSData *messageData;
-
-+ (id)messageWithDictionary:(NSDictionary *)dictionary
-                    success:(SHMessageSuccessCallback)successBlock
-                    failure:(SHMessageFailureCallback)failureBlock;
-
-@end
-
-@interface SHClient : NSObject
+@interface SHClient : SHSocket
 
 - (id)initWithURL:(NSURL *)url docName:(NSString *)docName;
 
 @property (strong) NSString *docName;
 @property (strong) NSString *auth;
-@property (strong) NSURL *url;
-@property (strong) SHMessage *inflightMessage;
-
-// connect or reconnect to the doc
-- (void)connectToSocket;
 
 // opens a document on the server
 - (void)openDocument:(NSString*)docName;
-
-- (void)addMessageToQueue:(SHMessage *)message;
 
 // find the right callbacks for this operation
 - (NSArray *)callbacksForOperation:(id<SHOperation>)operation;

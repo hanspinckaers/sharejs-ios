@@ -7,44 +7,12 @@
 //
 
 #import "SHClient.h"
-#import "SRWebSocket.h"
-#import "NSDictionary+Safe.h"
+#import "Categories+Safe.h"
 
-@interface SHClient () <SRWebSocketDelegate>
+@interface SHClient ()
 
-@property (strong) SRWebSocket *socket;
-@property (strong) NSMutableDictionary *callbacks;
-@property (strong) NSMutableArray *queue;
+@property (strong) NSMutableDictionary *shareCallbacks;
 @property (strong) NSMutableArray *unsendedOperations;
-
-@end
-
-@implementation SHMessage
-
-+ (id)messageWithDictionary:(NSDictionary *)dictionary
-                    success:(SHMessageSuccessCallback)successBlock
-                    failure:(SHMessageFailureCallback)failureBlock
-{
-    SHMessage *message = [[[self class] alloc] init];
-    
-    if(message)
-    {
-        message.messageDict = dictionary;
-        message.successCallback = successBlock;
-        message.failureCallback = failureBlock;
-    }
-    
-    return message;
-}
-
-- (NSData *)messageData
-{
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:_messageDict options:NSJSONReadingMutableContainers error:&error];
-    if(jsonData) return jsonData;
-    NSLog(@"error converting to messageData: %@", error);
-    return nil;
-}
 
 @end
 
@@ -56,7 +24,7 @@
     
     if(self)
     {        
-        _url = url;
+        self.url = url;
         _docName = docName;
         [self connectToSocket];
     }
@@ -65,27 +33,30 @@
 }
 
 - (void)connectToSocket
-{
-    if(!_socket)
+{    
+    SHMessage *authMessage = [SHMessage messageWithMessage:nil success:^(NSString* message)
     {
-        _socket = [[SRWebSocket alloc] initWithURL:_url];
-        _socket.delegate = self;
-    }
-
-    SHMessage *authMessage = [SHMessage messageWithDictionary:nil success:^(NSDictionary *respons)
-    {
-        if(_auth == nil && respons[@"auth"] != nil)
-            _auth = respons[@"auth"];
+        NSDictionary *messageDict = [message dictionaryRepresentation];
+        
+        if(_auth == nil && messageDict[@"auth"] != nil)
+            _auth = messageDict[@"auth"];
 
         NSLog(@"_auth %@", _auth);
         
         [self openDocument:_docName];
       
-    } failure:^(NSError *error) {}];
+    } failure:^(NSError *error) {
+        
+    } shouldHandleResponse:^(NSString *message, BOOL *handle) {
+        
+        NSDictionary *messageDict = [message dictionaryRepresentation];
+        if(messageDict && [messageDict hasKey:@"auth"]) *handle = YES;
+        
+    }];
     
-    [self addMessageToQueue:authMessage];
+    [self sendMessage:authMessage];
 
-    [_socket open];
+    [super connectToSocket];
 }
 
 - (void)openDocument:(NSString *)docName
@@ -100,9 +71,11 @@
     if(!_unsendedOperations) _unsendedOperations = [NSMutableArray array];
     [_unsendedOperations addObject:operation];
     
-    SHMessage *message = [SHMessage messageWithDictionary:[operation jsonDictionary]
-                                                  success:^(NSDictionary *respons)
+    SHMessage *message = [SHMessage messageWithMessage:[operation data]
+                                               success:^(id message)
     {
+        
+        NSDictionary *respons = [message dictionaryRepresentation];
         id<SHOperation> operation = [self operationForJSONDictionary:respons];
         NSArray *callbacks = [self callbacksForOperation:operation];
         [callbacks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -110,11 +83,16 @@
             callback(operation.type, operation);
         }];
         [_unsendedOperations removeObject:operation];
+        
     } failure:^(NSError *error) {
+        
         NSLog(@"Error sending message: %@", error);
+        
+    } shouldHandleResponse:^(NSString *message, BOOL *handle) {
+        
     }];
     
-    [self addMessageToQueue:message];
+    [self sendMessage:message];
 }
 
 #pragma mark - Callback handling
@@ -128,7 +106,7 @@
 - (NSArray *)callbacksForOperation:(id<SHOperation>)operation
 {
     NSMutableArray *callbacks = [NSMutableArray array];
-    [_callbacks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    [_shareCallbacks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if([obj[@"type"] integerValue] == operation.type)
         {
             [callbacks addObject:obj];
@@ -140,107 +118,66 @@
 // add a callback for a certain operation type
 - (NSString *)addCallback:(SHCallbackBlock)callback type:(SHType)type
 {
-    if(!_callbacks) _callbacks = [NSMutableDictionary dictionary];
+    if(!_shareCallbacks) _shareCallbacks = [NSMutableDictionary dictionary];
     NSDictionary *callbackDict = @{ @"callback" : callback, @"type" : [NSNumber numberWithInteger:type] };
     NSString *identifier = [NSString randomString:10];
-    [_callbacks setObject:callbackDict forKey:identifier];
+    [_shareCallbacks setObject:callbackDict forKey:identifier];
     return identifier;
 }
 
 // remove callback with this identifier
 - (void)removeCallbackWithIdentifier:(NSString *)identifier
 {
-    [_callbacks removeObjectForKey:identifier];
+    [_shareCallbacks removeObjectForKey:identifier];
 }
 
 // removes all callbacks for a certain type
 - (void)removeCallbacksForType:(SHType)type
 {
-    NSMutableDictionary *newCallbacks = [_callbacks mutableCopy];
-    [_callbacks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+    NSMutableDictionary *newCallbacks = [_shareCallbacks mutableCopy];
+    [_shareCallbacks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if([obj[@"type"] integerValue] == type)
         {
             [newCallbacks removeObjectForKey:key];
         }
     }];
-    _callbacks = newCallbacks;
+    _shareCallbacks = newCallbacks;
 }
 
 // removes all callbacks
 - (void)removeAllCallbacks
 {
-    _callbacks = nil;
+    _shareCallbacks = nil;
 }
 
 // returns callback with this identifier
 - (SHCallbackBlock)callbackForIdentifier:(NSString *)identifier
 {
-    return [_callbacks objectForKey:identifier][@"callback"];
+    return [_shareCallbacks objectForKey:identifier][@"callback"];
 }
 
 
 - (void)removeCallbackForIdentifier:(NSString *)identifier
 {
-    [_callbacks removeObjectForKey:identifier];
-}
-
-#pragma mark - Socket communicator
-
-- (void)addMessageToQueue:(SHMessage *)message
-{
-    if(!_queue) _queue = [NSMutableArray array];
-    [_queue addObject:message];
-    [self sendNextMessageOfQueue];
-}
-
-- (void)sendNextMessageOfQueue
-{
-    if([_queue count] == 0 || _inflightMessage) return;
-    
-    _inflightMessage = [_queue lastObject];
-    [_queue removeLastObject];
-    if(_inflightMessage.messageDict) [_socket send:_inflightMessage.messageData];
+    [_shareCallbacks removeObjectForKey:identifier];
 }
 
 #pragma mark - SocketRocket delegate methods
 
-- (void)webSocketDidOpen:(SRWebSocket *)webSocket
-{
-    NSLog(@"webSocketDidOpen");
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message
-{
-    NSLog(@"didReceiveMessage: %@", message);
-    
-    NSError *e = nil;
-    
-    NSDictionary *messageDict = [NSJSONSerialization JSONObjectWithData:[(NSString* )message dataUsingEncoding:NSUTF8StringEncoding]
-                                                                options:NSJSONReadingMutableContainers
-                                                                  error:&e];
-    
-    SHMessage *oldInflight = _inflightMessage;
-    _inflightMessage = nil;
-    
-    if(e) oldInflight.failureCallback(e);
-    else oldInflight.successCallback(messageDict);
-    
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
-{
-    NSLog(@"%@", error);
-    _inflightMessage.failureCallback(error);
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
-{
-    NSError *error = [[NSError alloc] initWithDomain:nil
-                                                code:code
-                                            userInfo:[NSDictionary dictionaryWithObject:reason
-                                                                                 forKey:NSLocalizedDescriptionKey]];
-    
-    _inflightMessage.failureCallback(error);
-}
+//- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error
+//{
+//    NSLog(@"%@", error);
+//    _inflightMessage.failureCallback(error);
+//}
+//
+//- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean
+//{
+//    NSError *error = [[NSError alloc] initWithDomain:nil
+//                                                code:code
+//                                            userInfo:[NSDictionary dictionaryWithObject:reason
+//                                                                                 forKey:NSLocalizedDescriptionKey]];
+//    
+//    _inflightMessage.failureCallback(error);
+//}
 
 @end

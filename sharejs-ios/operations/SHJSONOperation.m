@@ -7,7 +7,7 @@
 //
 
 #import "SHJSONOperation.h"
-#import "NSDictionary+Safe.h"
+#import "Categories+Safe.h"
 
 static NSMutableDictionary *operationClasses;
 
@@ -70,6 +70,14 @@ static NSMutableDictionary *operationClasses;
 - (NSDictionary *)jsonDictionary
 {
     return nil;
+}
+
+- (NSData *)data
+{
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.jsonDictionary options:NSJSONReadingMutableContainers error:&error];
+    if(error) return nil;
+    return jsonData;
 }
 
 - (void)runOnObject:(NSObject**)object;

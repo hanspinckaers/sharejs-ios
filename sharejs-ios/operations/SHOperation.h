@@ -26,6 +26,7 @@ typedef enum
 
 @protocol SHOperation <NSObject>
 
+- (NSData *)data;
 - (NSDictionary *)jsonDictionary;
 + (id)operationWithJSONDictionary:(NSDictionary *)JSONDictionary;
 - (id)initWithJSONDictionary:(NSDictionary *)JSONDictionary;

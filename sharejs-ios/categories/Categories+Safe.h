@@ -11,11 +11,20 @@
 @interface NSDictionary (Safe)
 
 - (id)safeObjectForKey:(id)key;
+- (BOOL)hasKey:(id)testKey;
+- (BOOL)hasKeys:(NSArray *)keys;
 
 @end
 
 @interface NSArray (Safe)
 
 - (id)safeObjectAtIndex:(NSInteger)index;
+
+@end
+
+@interface NSString (Safe)
+
+- (NSDictionary *)dictionaryRepresentation;
+- (NSArray *)arrayRepresentation;
 
 @end

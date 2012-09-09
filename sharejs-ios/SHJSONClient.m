@@ -8,6 +8,7 @@
 
 #import "SHJSONClient.h"
 #import "SHJSONOperation.h"
+#import "Categories+Safe.h"
 
 @interface SHJSONClient ()
 
@@ -20,14 +21,22 @@
 - (void)openDocument:(NSString *)docName
 {
     SHMessage *openMessage = [SHMessage messageWithDictionary:@{ @"doc" : self.docName, @"open": [NSNumber numberWithBool:YES], @"create" : [NSNumber numberWithBool:YES], @"type" : @"json",  @"snapshot": [NSNull null] }
-                                                      success:^(NSDictionary *respons)
+                                                      success:^(id message)
     {
-        NSLog(@"opened doc with respons: %@", respons);
+        NSLog(@"opened doc with respons: %@", message);
     } failure:^(NSError *error) {
         NSLog(@"error: %@", error);
+    } shouldHandleResponse:^(NSString *message, BOOL *handle) {
+        
+        NSDictionary *messageDict = [message dictionaryRepresentation];
+        if(messageDict)
+        {
+            if([messageDict hasKeys:@[ @"doc", @"open" ]]) *handle = YES;
+        }
+        
     }];
     
-    [self addMessageToQueue:openMessage];
+    [self sendMessage:openMessage];
 }
 
 - (NSString *)addCallback:(SHCallbackBlock)callback forPath:(SHPath *)path type:(SHType)type

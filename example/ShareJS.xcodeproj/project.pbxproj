@@ -14,7 +14,7 @@
 		3A79B25015F8AA540051C19C /* SHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B24C15F8AA540051C19C /* SHAppDelegate.m */; };
 		3A79B25115F8AA540051C19C /* SHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B24E15F8AA540051C19C /* SHViewController.m */; };
 		3A79B25215F8AA540051C19C /* SHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A79B24F15F8AA540051C19C /* SHViewController.xib */; };
-		3A79B26715F8AAE10051C19C /* NSDictionary+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25815F8AAE10051C19C /* NSDictionary+Safe.m */; };
+		3A79B26715F8AAE10051C19C /* Categories+Safe.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25815F8AAE10051C19C /* Categories+Safe.m */; };
 		3A79B26815F8AAE10051C19C /* NSString+Identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25A15F8AAE10051C19C /* NSString+Identifier.m */; };
 		3A79B26915F8AAE10051C19C /* SHJSONInsertStringOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25D15F8AAE10051C19C /* SHJSONInsertStringOperation.m */; };
 		3A79B26A15F8AAE10051C19C /* SHJSONOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A79B25F15F8AAE10051C19C /* SHJSONOperation.m */; };
@@ -27,6 +27,7 @@
 		3AB432D415F0E3C200EB158F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB432D315F0E3C200EB158F /* libicucore.dylib */; };
 		3AB432D615F0E3C800EB158F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB432D515F0E3C800EB158F /* CFNetwork.framework */; };
 		3AB432D815F0E3CE00EB158F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB432D715F0E3CE00EB158F /* Security.framework */; };
+		3AF367A715FB54A400826FD1 /* SHSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF367A615FB54A400826FD1 /* SHSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,8 +44,8 @@
 		3A79B24D15F8AA540051C19C /* SHViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHViewController.h; sourceTree = "<group>"; };
 		3A79B24E15F8AA540051C19C /* SHViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHViewController.m; sourceTree = "<group>"; };
 		3A79B24F15F8AA540051C19C /* SHViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHViewController.xib; sourceTree = "<group>"; };
-		3A79B25715F8AAE10051C19C /* NSDictionary+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Safe.h"; sourceTree = "<group>"; };
-		3A79B25815F8AAE10051C19C /* NSDictionary+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Safe.m"; sourceTree = "<group>"; };
+		3A79B25715F8AAE10051C19C /* Categories+Safe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Categories+Safe.h"; sourceTree = "<group>"; };
+		3A79B25815F8AAE10051C19C /* Categories+Safe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Categories+Safe.m"; sourceTree = "<group>"; };
 		3A79B25915F8AAE10051C19C /* NSString+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Identifier.h"; sourceTree = "<group>"; };
 		3A79B25A15F8AAE10051C19C /* NSString+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Identifier.m"; sourceTree = "<group>"; };
 		3A79B25C15F8AAE10051C19C /* SHJSONInsertStringOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHJSONInsertStringOperation.h; sourceTree = "<group>"; };
@@ -68,6 +69,8 @@
 		3AB432D315F0E3C200EB158F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		3AB432D515F0E3C800EB158F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		3AB432D715F0E3CE00EB158F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3AF367A515FB54A400826FD1 /* SHSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSocket.h; sourceTree = "<group>"; };
+		3AF367A615FB54A400826FD1 /* SHSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSocket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +151,8 @@
 			children = (
 				3A79B25615F8AAE10051C19C /* categories */,
 				3A79B25B15F8AAE10051C19C /* operations */,
+				3AF367A515FB54A400826FD1 /* SHSocket.h */,
+				3AF367A615FB54A400826FD1 /* SHSocket.m */,
 				3A79B26115F8AAE10051C19C /* SHClient.h */,
 				3A79B26215F8AAE10051C19C /* SHClient.m */,
 				3A79B26315F8AAE10051C19C /* SHJSONClient.h */,
@@ -162,8 +167,8 @@
 		3A79B25615F8AAE10051C19C /* categories */ = {
 			isa = PBXGroup;
 			children = (
-				3A79B25715F8AAE10051C19C /* NSDictionary+Safe.h */,
-				3A79B25815F8AAE10051C19C /* NSDictionary+Safe.m */,
+				3A79B25715F8AAE10051C19C /* Categories+Safe.h */,
+				3A79B25815F8AAE10051C19C /* Categories+Safe.m */,
 				3A79B25915F8AAE10051C19C /* NSString+Identifier.h */,
 				3A79B25A15F8AAE10051C19C /* NSString+Identifier.m */,
 			);
@@ -263,7 +268,7 @@
 				3A79B24915F8AA490051C19C /* main.m in Sources */,
 				3A79B25015F8AA540051C19C /* SHAppDelegate.m in Sources */,
 				3A79B25115F8AA540051C19C /* SHViewController.m in Sources */,
-				3A79B26715F8AAE10051C19C /* NSDictionary+Safe.m in Sources */,
+				3A79B26715F8AAE10051C19C /* Categories+Safe.m in Sources */,
 				3A79B26815F8AAE10051C19C /* NSString+Identifier.m in Sources */,
 				3A79B26915F8AAE10051C19C /* SHJSONInsertStringOperation.m in Sources */,
 				3A79B26A15F8AAE10051C19C /* SHJSONOperation.m in Sources */,
@@ -273,6 +278,7 @@
 				3A79B27615F8AAF30051C19C /* base64.c in Sources */,
 				3A79B27715F8AAF30051C19C /* NSData+SRB64Additions.m in Sources */,
 				3A79B27815F8AAF30051C19C /* SRWebSocket.m in Sources */,
+				3AF367A715FB54A400826FD1 /* SHSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
