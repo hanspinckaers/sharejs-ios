@@ -24,7 +24,7 @@ typedef enum
     SHTypeReplaceObjectInObject
 } SHType;
 
-@protocol SHOperation <NSObject>
+@protocol SHOperation <NSObject, NSCoding>
 
 - (NSData *)data;
 - (NSDictionary *)jsonDictionary;

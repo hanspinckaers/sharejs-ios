@@ -26,10 +26,19 @@
     {        
         self.url = url;
         _docName = docName;
+        
+        [self loadInflightOperations];
+        [self registerToAppEvents];
         [self connectToSocket];
     }
     
     return self;
+}
+
+- (void)registerToAppEvents
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveInflightOperations) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveInflightOperations) name:UIApplicationWillTerminateNotification object:nil];
 }
 
 - (void)connectToSocket
@@ -71,28 +80,54 @@
     if(!_unsendedOperations) _unsendedOperations = [NSMutableArray array];
     [_unsendedOperations addObject:operation];
     
-    SHMessage *message = [SHMessage messageWithMessage:[operation data]
-                                               success:^(id message)
+    if(!_inflightOperation) [self sendNextOperation];
+}
+
+- (void)sendNextOperation
+{
+    if(_inflightOperation || [_unsendedOperations count] == 0) return;
+    
+    _inflightOperation = [_unsendedOperations objectAtIndex:0];
+    
+    SHMessage *operationMessage = [SHMessage messageWithDictionary:[_inflightOperation jsonDictionary]
+                                                           success:^(NSString *message)
     {
         
-        NSDictionary *respons = [message dictionaryRepresentation];
-        id<SHOperation> operation = [self operationForJSONDictionary:respons];
-        NSArray *callbacks = [self callbacksForOperation:operation];
-        [callbacks enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            SHCallbackBlock callback = (SHCallbackBlock)obj[@"callback"];
-            callback(operation.type, operation);
-        }];
-        [_unsendedOperations removeObject:operation];
+        _inflightOperation = nil;
+        [_unsendedOperations removeObject:_inflightOperation];
+        
+        [self sendNextOperation];
         
     } failure:^(NSError *error) {
-        
-        NSLog(@"Error sending message: %@", error);
-        
+
     } shouldHandleResponse:^(NSString *message, BOOL *handle) {
+        
+        NSDictionary *messageDict = [message dictionaryRepresentation];
+        if(messageDict && [messageDict hasKey:@"v"] && [[messageDict allKeys] count]) *handle = YES;
         
     }];
     
-    [self sendMessage:message];
+    [self sendMessage:operationMessage];
+}
+
+- (NSString *)unsendedOperationsFileString
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filename = [NSString stringWithFormat:@"op_%@_%@", [self.url absoluteString], _docName];
+    return [documentsDirectory stringByAppendingPathComponent:filename];
+}
+
+- (void)saveInflightOperations
+{
+    NSString *filename = [self unsendedOperationsFileString];
+    [NSKeyedArchiver archiveRootObject:_unsendedOperations toFile:filename];
+}
+
+- (void)loadInflightOperations
+{
+    NSString *filename = [self unsendedOperationsFileString];
+    _unsendedOperations = [NSKeyedUnarchiver unarchiveObjectWithFile:filename];
 }
 
 #pragma mark - Callback handling

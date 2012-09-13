@@ -23,6 +23,7 @@ typedef void(^SHCallbackBlock)(SHType type, id<SHOperation>operation);
 
 @property (strong) NSString *docName;
 @property (strong) NSString *auth;
+@property (strong) id<SHOperation> inflightOperation;
 
 // opens a document on the server
 - (void)openDocument:(NSString*)docName;
