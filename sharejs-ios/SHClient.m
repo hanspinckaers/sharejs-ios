@@ -68,9 +68,30 @@
     [super connectToSocket];
 }
 
+- (void)registerForOperations
+{
+    // subclass should register for operation events
+    SHCallback *receivedOperation = [SHCallback callbackWithSuccessBlock:^(NSString *message) {
+        
+        NSDictionary *messageDict = [message dictionaryRepresentation];
+        if(messageDict) [self callCallbacksForOperationDictionary:messageDict];
+        
+    } failureBlock:^(NSError *error) {
+       
+    } shouldHandleResponse:^(NSString *message, BOOL *handle) {
+    
+        NSDictionary *messageDictionary = [message dictionaryRepresentation];
+        if([messageDictionary hasKeys:@[ @"v", @"op", @"meta" ] ]) *handle = YES;
+        
+    }];
+    
+    [self addCallback:receivedOperation];
+}
+
 - (void)openDocument:(NSString *)docName
 {
     // subclass should have this function
+    [self registerForOperations];
     [self sendNextOperation];
 }
 
@@ -132,6 +153,17 @@
 }
 
 #pragma mark - Callback handling
+
+- (void)callCallbacksForOperationDictionary:(NSDictionary *)jsonDictionary
+{
+    id<SHOperation> operation = [self operationForJSONDictionary:jsonDictionary];
+    NSArray *callbacks = [self callbacksForOperation:operation];
+    for(NSDictionary *callbackDict in callbacks)
+    {
+        SHCallbackBlock block = callbackDict[@"callback"];
+        if(block) block(operation.type, operation);
+    }
+}
 
 - (id<SHOperation>)operationForJSONDictionary:(NSDictionary *)jsonDictionary
 {

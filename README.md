@@ -9,7 +9,7 @@ Todo list
 * Write tests (switch to TDD)
 * Create classes for all JSON operations
 * ~~Make a queing system for sending messages via the socket~~ *done*
-* Saving unsended operations / send them when we are online again
+* ~~Saving unsended operations / send them when we are online again~~ *done, needs testing*
 * More universal way to apply Operations; 
 	* The are designed for NSDictionary/NSArray's now
 	* Create a protocol (SHOperationTarget?)
