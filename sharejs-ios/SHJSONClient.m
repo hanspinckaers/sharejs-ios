@@ -24,6 +24,8 @@
                                                       success:^(id message)
     {
         NSLog(@"opened doc with respons: %@", message);
+        [super openDocument:docName];
+        
     } failure:^(NSError *error) {
         NSLog(@"error: %@", error);
     } shouldHandleResponse:^(NSString *message, BOOL *handle) {

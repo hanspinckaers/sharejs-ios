@@ -71,6 +71,7 @@
 - (void)openDocument:(NSString *)docName
 {
     // subclass should have this function
+    [self sendNextOperation];
 }
 
 #pragma mark - Submitting
